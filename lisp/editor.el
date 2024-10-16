@@ -24,16 +24,9 @@
 ;; put savefiles elsewhere so it doesn't litter my folders
 (setq backup-directory-alist `(("." . "~/.emacs-saves")))
 
-;; define a leader key
-(define-prefix-command 'editor-leader-map)
-
 ;; save customisations elsewhere
 (setq custom-file (expand-file-name ".custom.el" user-emacs-directory))
 (load custom-file)
-
-;;; BINDS
-(setq ibuffer-expert t) ;; do not ask for comfirmation
-(global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; Consider using meow? but I want to maintain familiarity with vim bindings, the reverse motions don't seem interesting to me...
 (setq help-window-select t)
@@ -47,21 +40,20 @@
   (evil-want-C-i-jump t)
   (evil-search-module 'evil-search "use vim-like search instead of isearch.")
   :config
-  ;; configure leader keys
-  (keymap-set evil-motion-state-map "SPC" 'editor-leader-map)
-  (keymap-set evil-normal-state-map "SPC" 'editor-leader-map)
-  (evil-define-key nil editor-leader-map
-    "b" #'switch-to-buffer
-    "k" #'kill-buffer
-    "f" #'find-file
-    ";" #'execute-extended-command
-    "B" #'ibuffer)
   (add-hook 'minibuffer-setup-hook
             (lambda ()
               (if (minibufferp)
                   (evil-emacs-state))))
   (evil-global-set-key 'normal ";" #'evil-ex)
   (evil-global-set-key 'visual ";" #'evil-ex)
+
+  ;; use the dwim escape defined below
+  (defun evil-escape-a (&rest _)
+    "Call custom DWIM escape if evil-force-normal-state is called interactively"
+    (when (called-interactively-p 'any)
+      (call-interactively #'editor-escape)))
+  (advice-add #'evil-force-normal-state :after #'evil-escape-a)
+  
   (evil-mode))
 
 (use-package which-key
@@ -110,6 +102,7 @@
   (use-package orderless
     :demand t
     :custom
+    (orderless-matching-styles '(orderless-literal orderless-regexp orderless-flex))
     (completion-styles '(orderless basic))
     (completion-category-defaults nil)
     (completion-category-overrides '((file (styles basic partial-completion))))))
@@ -127,6 +120,11 @@
   (evil-collection-init)
   (blackout 'evil-collection-unimpaired-mode)
   :init (setq evil-collection-setup-minibuffer t))
+
+(use-package evil-anzu
+  :disabled
+  :after evil
+  :defer t)
 
 (use-package helpful
   :defer t

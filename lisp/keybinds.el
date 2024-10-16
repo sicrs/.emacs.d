@@ -18,6 +18,21 @@
 ;;  Description
 ;;
 ;;; Code:
+(define-prefix-command 'editor-leader-map)
 
+(with-eval-after-load 'evil
+  (keymap-set evil-motion-state-map "SPC" 'editor-leader-map)
+  (keymap-set evil-normal-state-map "SPC" 'editor-leader-map)
+  (evil-define-key nil editor-leader-map
+    "b" #'switch-to-buffer
+    "k" #'kill-buffer
+    " " #'find-file
+    "f" #'find-file-other-window
+    "w" #'make-frame
+    ";" #'execute-extended-command
+    "B" #'ibuffer))
+
+(setq ibuffer-expert t)
+(global-set-key (kbd "C-x C-b") #'ibuffer)
 
 (provide 'keybinds)
