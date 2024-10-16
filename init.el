@@ -18,7 +18,7 @@
 ;;  Description
 ;;
 ;;; Code:
-(defvar init-esup-profile t)
+(defvar init-esup-profile nil)
 
 ;; elpaca-loader
 (defvar elpaca-installer-version 0.7)
