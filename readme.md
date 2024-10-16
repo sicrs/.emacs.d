@@ -1,1 +1,1 @@
-- We do not need the compat package
+Clone the `clean` branch into your emacs user directory (usually `~/.emacs.d`)
