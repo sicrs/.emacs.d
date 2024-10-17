@@ -19,8 +19,6 @@
 ;;
 ;;; Code:
 
-(defvar editor-use-orderless-completion t)
-
 ;; put savefiles elsewhere so it doesn't litter my folders
 (setq backup-directory-alist `(("." . "~/.emacs-saves")))
 
@@ -98,14 +96,12 @@
   (with-eval-after-load 'evil
     (setq evil-complete-next-func (lambda (_) (completion-at-point)))))
 
-(when editor-use-orderless-completion
-  (use-package orderless
-    :demand t
-    :custom
-    (orderless-matching-styles '(orderless-literal orderless-regexp orderless-flex))
-    (completion-styles '(orderless basic))
-    (completion-category-defaults nil)
-    (completion-category-overrides '((file (styles basic partial-completion))))))
+(use-package orderless
+  :custom
+  (orderless-matching-styles '(orderless-literal orderless-regexp orderless-flex))
+  (completion-styles '(orderless basic))
+  (completion-category-defaults nil)
+  (completion-category-overrides '((file (styles basic partial-completion)))))
 
 (use-package evil-smartparens
   :defer t
