@@ -20,16 +20,38 @@
 ;;; Code:
 
 ;; font settings
-(defvar ui-default-font-size 120)
-(defvar ui-default-variable-font-size 120)
+(defvar ui-default-font-height 110)
+(defvar ui-default-variable-font-height 110)
 
-(set-face-attribute 'default nil :font "Berkeley Mono-11")
-(set-face-attribute 'fixed-pitch nil :font "Berkeley Mono-11")
-(set-face-attribute 'variable-pitch nil :font "SF Compact Text-11")
+(set-face-attribute 'default nil :font "Berkeley Mono Variable-10" :height ui-default-font-height)
+(set-face-attribute 'fixed-pitch nil :font "Berkeley Mono Variable-10" :height ui-default-font-height)
+(set-face-attribute 'variable-pitch nil :font "SF Compact Text-10" :height ui-default-variable-font-height)
+
+;; custom org-mode faces
+;; (with-eval-after-load 'org
+;;   (let* ((variable-tuple '(:family "SF Compact Text"))
+;; 	 (title-tuple '(:family "Source Serif Pro"))
+;; 	 (base-font-colour (face-foreground 'default nil 'default))
+;; 	 (headline `(:inherit default :weight regular :foreground ,base-font-colour)))
+
+;;     (custom-theme-set-faces
+;;      'user
+;;      `(org-level-8 ((t (,@headline ,@variable-tuple))))
+;;      `(org-level-7 ((t (,@headline ,@variable-tuple))))
+;;      `(org-level-6 ((t (,@headline ,@variable-tuple))))
+;;      `(org-level-5 ((t (,@headline ,@variable-tuple))))
+;;      `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.1))))
+;;      `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.2))))
+;;      `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.2))))
+;;      `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.2))))
+;;      `(org-document-title ((t (,@headline ,@title-tuple :height 1.8 :underline nil)))))))
 
 (use-package almost-mono-themes
+  :disabled
   :config
   (load-theme 'almost-mono-black t))
+
+(load-theme 'modus-vivendi t)
 
 ;; line number
 ;; (global-display-line-numbers-mode t)
