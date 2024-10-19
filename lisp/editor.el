@@ -47,7 +47,7 @@
 
   ;; use the dwim escape defined below
   (defun evil-escape-a (&rest _)
-    "Call custom DWIM escape if evil-force-normal-state is called interactively"
+   "Call custom DWIM escape if evil-force-normal-state is called interactively"
     (when (called-interactively-p 'any)
       (call-interactively #'editor-escape)))
   (advice-add #'evil-force-normal-state :after #'evil-escape-a)
@@ -96,6 +96,7 @@
   (with-eval-after-load 'evil
     (setq evil-complete-next-func (lambda (_) (completion-at-point)))))
 
+;; allows out-of-order regex completion and iterative selection
 (use-package orderless
   :custom
   (orderless-matching-styles '(orderless-literal orderless-regexp orderless-flex))
@@ -117,45 +118,26 @@
   (blackout 'evil-collection-unimpaired-mode)
   :init (setq evil-collection-setup-minibuffer t))
 
-(use-package evil-anzu
-  :disabled
-  :after evil
-  :defer t)
-
 (use-package helpful
   :defer t
   :init
   (global-set-key (kbd "C-h k") #'helpful-key)
   (global-set-key (kbd "C-h .") #'helpful-at-point))
 
-;; MISC relating to keymaps
-;; custom DWIM escape, adapted from doom
-(defvar editor-escape-hook nil
-  "A hook run when C-g is pressed, or ESC in normal mode.")
-(defun editor-escape (&optional interactive)
-  "Run `editor-escape-hook'"
-  (interactive (list 'interactive))
-  (let ((inhibit-quit t))
-    (cond ((minibuffer-window-active-p (minibuffer-window))
-           (when interactive
-             (setq this-command #'abort-recursive-edit))
-           (abort-recursive-edit))
-          ((run-hook-with-args-until-success 'editor-escape-hook))
-          ((or defining-kbd-macro executing-kbd-macro) nil)
-          ((unwind-protect (keyboard-quit)
-             (when interactive
-               (setq this-command 'keyboard-quit)))))))
-
-(global-set-key [remap keyboard-quit] #'editor-escape)
+(use-package god-mode
+  :defer t
+  :after evil
+  :config
+  (blackout 'god-local-mode))
 
 ;; TODO: clear
 ;; play around with find-file minibuffer completion
-(defun find-file-test ()
-  (interactive)
-  (message "lmao"))
+;; (defun find-file-test ()
+;;   (interactive)
+;;   (message "lmao"))
 
-(define-key minibuffer-local-filename-completion-map
-            [C-Backspace] #'find-file-test)
+;; (define-key minibuffer-local-filename-completion-map
+;;             [C-Backspace] #'find-file-test)
 
 (provide 'editor)
 ;;; editor.el ends here
