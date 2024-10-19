@@ -90,17 +90,15 @@
     (add-hook 'post-command-hook #'evil-stop-execute-in-god-state t)
     (setq evil-execute-in-god-state-buffer (current-buffer))
     (setq evil-god-last-command last-command)
-    ;; TODO: DOES NOT transition to god-state locally for some reason
-    ;; (cond
-    ;;  ((evil-visual-state-p)
-    ;;   (let ((mrk (mark))
-    ;; 	    (pnt (point)))
-    ;; 	(evil-god-state)
-    ;; 	(set-mark mrk)
-    ;; 	(goto-char pnt)))
-    ;;  (t
-    ;;   (evil-god-state)))
-    (evil-god-state)
+    (cond
+     ((evil-visual-state-p)
+      (let ((mrk (mark))
+	    (pnt (point)))
+	(evil-god-state)
+	(set-mark mrk)
+	(goto-char pnt)))
+     (t
+      (evil-god-state)))
     (evil-echo "Switched to god-state for the next command..."))
 
   ;; unconditionally exit evil-god state
