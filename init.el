@@ -20,6 +20,7 @@
 ;;; Code:
 (defvar init-esup-profile nil)
 
+(setq native-comp-speed 3)
 ;; elpaca-loader
 (defvar elpaca-installer-version 0.7)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
@@ -75,6 +76,12 @@
 (cfg-load "lisp/editor.el")
 (cfg-load "lisp/lang.el")
 (cfg-load "lisp/keybinds.el")
+
+;; MISC
+(if (boundp 'use-short-answers)
+    (setq use-short-answers t)
+  (advice-add #'yes-or-no-p :override #'y-or-n-p))
+(defalias #'view-hello-file #'ignore)
 
 (provide 'init)
 ;;; init.el ends here
