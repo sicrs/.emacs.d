@@ -22,12 +22,20 @@
 ;; put savefiles elsewhere so it doesn't litter my folders
 (setq backup-directory-alist `(("." . "~/.emacs-saves")))
 
+(setq-default indent-tabs-mode nil
+	      tab-width 4
+	      fill-column 80)
+
 ;; save customisations elsewhere
 (setq custom-file (expand-file-name ".custom.el" user-emacs-directory))
 (load custom-file)
 
 ;; Consider using meow? but I want to maintain familiarity with vim bindings, the reverse motions don't seem interesting to me...
-(setq help-window-select t)
+(setq help-window-select t
+      comment-multi-line t
+      kill-do-not-save-duplicates t
+      comment-empty-lines t
+      lazy-highlight-initial-delay 0)
 
 ;;; PACKAGES
 (use-package evil

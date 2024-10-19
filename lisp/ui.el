@@ -51,20 +51,21 @@
   :config
   (load-theme 'almost-mono-black t))
 
-(load-theme 'modus-vivendi t)
+(load-theme 'modus-operandi t)
 
 ;; line number
 ;; (global-display-line-numbers-mode t)
 ;; enable line numbers for text and code instead of enabling globally
-(setq-default display-line-numbers-width 3)
-(setq-default display-line-numbers-widen t)
-(setq display-line-numbers-type 'relative)
+(setq-default display-line-numbers-width 3
+	      display-line-numbers-widen t
+	      word-wrap t
+	      truncate-lines t)
+(setq display-line-numbers-type 'relative
+      truncate-partial-width-windows nil
+      global-text-scale-adjust-resizes-frames nil)
 (dolist (mode
          '(text-mode-hook prog-mode-hook conf-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode t))))
-
-;; do not wrap lines
-(set-default 'truncate-lines t)
 
 ;; cursor
 ;; disable the blinking cursor
