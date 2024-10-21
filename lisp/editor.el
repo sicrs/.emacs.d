@@ -73,6 +73,7 @@
         which-key-side-window-slot -10)
   :config
   (blackout 'which-key-mode)
+  (which-key-enable-god-mode-support)
   (which-key-mode)
   :custom
   (which-key-init-delay 0.2)
@@ -129,6 +130,8 @@
 (use-package helpful
   :defer t
   :init
+  (global-set-key (kbd "C-h v") #'helpful-variable)
+  (global-set-key (kbd "C-h f") #'helpful-callable)
   (global-set-key (kbd "C-h k") #'helpful-key)
   (global-set-key (kbd "C-h .") #'helpful-at-point))
 
