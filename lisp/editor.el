@@ -141,6 +141,11 @@
   :config
   (blackout 'god-local-mode))
 
+(use-package undo-fu
+  :defer t
+  :config
+  (setq evil-undo-system 'undo-fu))
+
 ;; TODO: clear
 ;; play around with find-file minibuffer completion
 ;; (defun find-file-test ()
