@@ -44,7 +44,7 @@
      (setq file-name-handler-alist default-file-name-handler-alist
 	   gc-cons-percentage 0.1
 	   gc-cons-threshold init--gc-cons-thval)
-     (message "gc-cons-threshold and file-name-handler-alist restored")
+     ;; (message "gc-cons-threshold and file-name-handler-alist restored")
      (when (boundp 'after-focus-change-function)
        (add-function :after after-focus-change-function #'+gc-after-focus-change)))))
 
@@ -128,6 +128,8 @@
                    (float-time
                     (time-subtract after-init-time before-init-time)))
            gcs-done))
+;; (with-eval-after-load 'elpaca
+;;   (add-hook 'elpaca-after-init-hook #'early-init-display-startup-time))
 (add-hook 'emacs-startup-hook #'early-init-display-startup-time)
 
 ;; HELPER functions
