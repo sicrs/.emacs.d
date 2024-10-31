@@ -2,4 +2,10 @@ auto-save-list/
 elpa/
 elpaca/
 eln-cache/
+themes/
+tree-sitter/
+
+# Files
 .custom.el
+projects
+tramp
