@@ -111,6 +111,7 @@
 
   ;; bind keys
   (evil-define-key 'normal global-map "," 'evil-execute-in-god-state)
+  (evil-define-key 'visual global-map "," 'evil-execute-in-god-state)
   ;; (evil-define-key 'god evil-god-state-map (kbd "ESC") #'evil-force-normal-state)
   ;; (evil-define-key 'god global-map [escape] 'god-state-bail)
   (keymap-set evil-motion-state-map "SPC" 'editor-leader-map)
