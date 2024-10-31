@@ -23,9 +23,13 @@
 (defvar ui-default-font-height 110)
 (defvar ui-default-variable-font-height 110)
 
-(set-face-attribute 'default nil :font "Berkeley Mono Variable-10" :height ui-default-font-height)
-(set-face-attribute 'fixed-pitch nil :font "Berkeley Mono Variable-10" :height ui-default-font-height)
-(set-face-attribute 'variable-pitch nil :font "SF Compact Text-10" :height ui-default-variable-font-height)
+(set-face-attribute 'default nil :font "Berkeley Mono Variable-11" :height ui-default-font-height)
+(set-face-attribute 'fixed-pitch nil :font "Berkeley Mono Variable-11" :height ui-default-font-height)
+;; (set-face-attribute 'variable-pitch nil :font "Iosevka Aile Medium-11" :height ui-default-variable-font-height)
+(set-face-attribute 'variable-pitch nil :font "SF Compact Text-11" :height ui-default-variable-font-height)
+;; (set-face-font 'variable-pitch "Iosevka Aile Semibold-12")
+
+(add-to-list 'custom-theme-load-path (expand-file-name "themes/" user-emacs-directory))
 
 ;; custom org-mode faces
 ;; (with-eval-after-load 'org
@@ -51,10 +55,26 @@
   :config
   (load-theme 'almost-mono-black t))
 
-(load-theme 'modus-operandi t)
+(use-package indent-bars
+  :defer t
+  :hook ((julia-mode) . indent-bars-mode)
+  :config
+  (setq indent-bars-pattern "."
+        indent-bars-width-frac 0.2
+        indent-bars-pad-frac 0.25
+        indent-bars-color-by-depth nil
+        indent-bars-highlight-current-depth '(:face default :blend 0.4)))
+
+(setq modus-themes-bold-constructs t
+      modus-themes-variable-pitch-ui t
+      modus-themes-italic-constructs t
+      modus-themes-fringes 'subtle
+      modus-themes-disable-other-themes t) ;
+(load-theme 'modus-vivendi t)		    ;
+;; (load-theme 'modus-vivendi-tinted t)
 
 ;; line number
-;; (global-display-line-numbers-mode t)
+;; (global-display-line-numbers-mode t);:
 ;; enable line numbers for text and code instead of enabling globally
 (setq-default display-line-numbers-width 3
 	      display-line-numbers-widen t
