@@ -57,4 +57,12 @@
 
 	; Agenda styling
 	org-agenda-tags-column 0
-	org-agenda-block-separator ?─))
+	org-agenda-block-separator ?─)
+  :config
+  (set-face-attribute 'org-modern-symbol nil :family "STIX Two Text"))
+
+;; (defun org--variable-pitch-set ()
+;;   "Enable variable-pitch-mode and set line numbers face to fixed pitch or monospace]"
+;;   (variable-pitch-mode 1)
+;;   (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
+;;   (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch))
