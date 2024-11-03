@@ -123,7 +123,8 @@
     "f" #'find-file-other-window
     "w" #'make-frame
     ";" #'execute-extended-command
-    "B" #'ibuffer))
+    "B" #'ibuffer
+    "t" #'tab-new))
 
 (setq ibuffer-expert t)
 (global-set-key (kbd "C-x C-b") #'ibuffer)
