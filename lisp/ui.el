@@ -66,7 +66,7 @@
         indent-bars-highlight-current-depth '(:face default :blend 0.4)))
 
 (setq modus-themes-bold-constructs t
-      modus-themes-variable-pitch-ui t
+      modus-themes-variable-pitch-ui nil
       modus-themes-italic-constructs t
       modus-themes-fringes 'subtle
       modus-themes-disable-other-themes t) ;
