@@ -23,8 +23,8 @@
 (setq backup-directory-alist `(("." . "~/.emacs-saves")))
 
 (setq-default indent-tabs-mode nil
-	      tab-width 4
-	      fill-column 80)
+	          tab-width 4
+	          fill-column 80)
 
 ;; save customisations elsewhere
 (setq custom-file (expand-file-name ".custom.el" user-emacs-directory))
@@ -38,7 +38,7 @@
       lazy-highlight-initial-delay 0)
 
 ;; open PDFs in zathura instead of DocView
-(defun editor-zathura-pdf-open()
+(defun editor-zathura-pdf-open ()
   (start-process "zathura" nil "zathura" "--fork" (buffer-file-name))
   (kill-buffer))
 (add-to-list 'auto-mode-alist '("\\.pdf\\'" . editor-zathura-pdf-open))
@@ -61,7 +61,7 @@
 
   ;; use the dwim escape defined below
   (defun evil-escape-a (&rest _)
-   "Call custom DWIM escape if evil-force-normal-state is called interactively"
+    "Call custom DWIM escape if evil-force-normal-state is called interactively"
     (when (called-interactively-p 'any)
       (call-interactively #'editor-escape)))
   (advice-add #'evil-force-normal-state :after #'evil-escape-a)
@@ -95,7 +95,21 @@
   :config
   (blackout 'smartparens-mode)
   (require 'smartparens-config)
-  (require 'smartparens-latex))
+  (require 'smartparens-latex)
+
+  (sp-with-modes 'org-mode
+    (sp-local-pair "$" "$" :trigger "$")
+    ;; (sp-local-pair "$" "$")
+    ;; (sp-local-pair "" "" :actions '(rem))
+    ;; (sp-local-pair "=" "=" :actions '(rem))
+    ;; (sp-local-pair "" "" :actions '(rem))
+    (sp-local-pair "\\left(" "\\right)" :trigger "\\l(" :post-handlers '(sp-latex-insert-spaces-inside-pair))
+    (sp-local-pair "\\left[" "\\right]" :trigger "\\l[" :post-handlers '(sp-latex-insert-spaces-inside-pair))
+    (sp-local-pair "\\left\\{" "\\right\\}" :trigger "\\l{" :post-handlers '(sp-latex-insert-spaces-inside-pair))
+    (sp-local-pair "\\left|" "\\right|" :trigger "\\l|" :post-handlers '(sp-latex-insert-spaces-inside-pair))
+    (sp-local-pair "(" ")")
+    (sp-local-pair "\\(" "\\)")
+    (sp-local-pair "\\[" "\\]")))
 
 (use-package corfu
   :defer 3
@@ -132,6 +146,12 @@
   (evil-collection-init)
   (blackout 'evil-collection-unimpaired-mode)
   :init (setq evil-collection-setup-minibuffer t))
+
+(use-package evil-matchit
+  :defer t
+  :after (evil)
+  :config
+  (global-evil-matchit-mode 1))
 
 (use-package helpful
   :defer t
