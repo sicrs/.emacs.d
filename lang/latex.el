@@ -21,7 +21,9 @@
 (use-package auctex
   :hook ((LaTeX-mode . prettify-symbols-mode))
   :custom
-  (TeX-engine 'xetex))
+  (TeX-engine 'xetex)
+  (add-to-list 'TeX-view-program-selection
+               '(output-pdf "Zathura")))
 
 (use-package latex-preview-pane
   :defer t)
