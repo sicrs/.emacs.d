@@ -153,6 +153,20 @@
   :config
   (global-evil-matchit-mode 1))
 
+(use-package evil-snipe
+  :defer t
+  :after (evil)
+  :init
+  ;; attach hooks
+  (add-hook 'prog-mode-hook 'turn-on-evil-snipe-mode)
+  (add-hook 'text-mode-hook 'turn-on-evil-snipe-mode)
+  (add-hook 'prog-mode-hook 'turn-on-evil-snipe-override-mode)
+  (add-hook 'text-mode-hook 'turn-on-evil-snipe-override-mode)
+  :config
+  ;; options
+  (setq evil-snipe-repeat-scope 'visible
+        evil-snipe-spillover-scope 'visible))
+
 (use-package helpful
   :defer t
   :init
