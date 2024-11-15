@@ -4,7 +4,8 @@
   :defer t
   :hook ((org-mode . org-cdlatex-mode) ;; enable cdlatex for quick writing inside the latex block
 	 (org-mode . visual-line-mode) ;; wrap
-	 (org-mode . org-indent-mode)) ;; show indents instead of multiple asterisks
+	 ;; (org-mode . org-indent-mode)
+     ) ;; show indents instead of multiple asterisks
   :config
   (setq org-preview-latex-default-process 'imagemagick)
   (setq org-latex-compiler "xelatex")
@@ -28,6 +29,26 @@
 	   "* TODO [#B] %?\n:Created: %T\n "
 	   :empty-lines 0)
 	  ))
+
+  ;; custom latex-macros babel language for custom \newcommand
+  ;; (add-to-list 'org-src-lang-modes '("latex-macros" . latex))
+  ;; (defvar org-babel-default-header-args:latex-macros
+  ;;   '((:results . "raw")
+  ;;     (:exports . "results")))
+  ;; 
+  ;; (defun prefix-all-lines (pre body)
+  ;;   (with-temp-buffer
+  ;;     (insert body)
+  ;;     (string-insert-rectangle (point-min) (point-max) pre)
+  ;;     (buffer-string)))
+  ;; 
+  ;; (defun org-babel-execute:latex-macros (body _params)
+  ;;   (concat
+  ;;    (prefix-all-lines "#+LATEX_HEADER: " body)
+  ;;    "\n#+HTML_HEAD_EXTRA: <div style=\"display: none\"> \\(\n"
+  ;;    (prefix-all-lines "#+HTML_HEAD_EXTRA: " body)
+  ;;    "\n#+HTML_HEAD_EXTRA: \\)</div>\n"))
+  
   (blackout 'visual-line-mode)
   (blackout 'org-indent-mode))
 
@@ -53,7 +74,7 @@
 
 	; Org styling
 	org-hide-emphasis-markers t
-	org-pretty-entities t
+	org-pretty-entities nil
 
 	; Agenda styling
 	org-agenda-tags-column 0
