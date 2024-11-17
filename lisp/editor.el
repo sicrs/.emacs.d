@@ -28,6 +28,16 @@
 
 ;; save customisations elsewhere
 (setq custom-file (expand-file-name ".custom.el" user-emacs-directory))
+
+(unless (file-directory-p custom-file)
+  (if (or (eq system-type 'darwin)
+          (eq system-type 'gnu/linux))
+      ((shell-command (format "touch %s" custom-file))
+       (message ".custom.el not found, creating..."))
+    (if (eq system-type 'ms-dos)
+        ((shell-command (format "type NUL > %s" custom-file))
+         (message ".custom.el not found, creating..."))
+      (error "Unknown system!"))))
 (load custom-file)
 
 ;; Consider using meow? but I want to maintain familiarity with vim bindings, the reverse motions don't seem interesting to me...
