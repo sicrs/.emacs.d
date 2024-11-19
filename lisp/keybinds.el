@@ -125,7 +125,9 @@
     ";" #'execute-extended-command
     "B" #'ibuffer
     "t" #'tab-new
-    "d" #'dired))
+    "d" #'dired
+    "1" #'delete-other-windows
+    "0" #'delete-window))
 
 (setq ibuffer-expert t)
 (global-set-key (kbd "C-x C-b") #'ibuffer)
