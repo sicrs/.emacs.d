@@ -20,7 +20,12 @@
 ;;; Code:
 
 ;; put savefiles elsewhere so it doesn't litter my folders
-(setq backup-directory-alist `(("." . "~/.emacs-saves")))
+(setq backup-directory-alist `(("." . "~/.emacs-saves"))
+      backup-by-copying t
+      delete-old-versions t
+      kept-old-versions 2
+      kept-new-versions 4
+      version-control t)
 
 (setq-default indent-tabs-mode nil
 	          tab-width 4
@@ -134,6 +139,12 @@
   (with-eval-after-load 'evil
     (setq evil-complete-next-func (lambda (_) (completion-at-point)))))
 
+(use-package cape
+  :defer t
+  :bind ("C-c p" . cape-prefix-map)
+  :init
+  (add-hook 'completion-at-point-functions #'cape-dabbrev))
+
 ;; allows out-of-order regex completion and iterative selection
 (use-package orderless
   :custom
@@ -172,6 +183,8 @@
   (add-hook 'prog-mode-hook 'turn-on-evil-snipe-override-mode)
   (add-hook 'text-mode-hook 'turn-on-evil-snipe-override-mode)
   :config
+  (blackout 'evil-snipe-local-mode)
+
   ;; options
   (setq evil-snipe-repeat-scope 'visible
         evil-snipe-spillover-scope 'visible))
