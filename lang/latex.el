@@ -42,6 +42,9 @@
   :hook ((LaTeX-mode . cdlatex-mode)
 	 (LaTeX-mode . cdlatex-electricindex-mode))
   :bind (:map cdlatex-mode-map ("<tab>" . cdlatex-tab))
+  :init
+  (setq cdlatex-env-alist
+        `(("equation*" "\\begin{equation*}\n?\n\\end{equation*}" nil)))
   :config
   (blackout 'cdlatex-mode))
 
