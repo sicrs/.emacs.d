@@ -8,7 +8,11 @@
 
 (defmacro load-language-module (path)
   "Load language module found in folder lang/"
-  `(load (expand-file-name ,path user-emacs-directory)))
+  `(load (expand-file-name ,path user-emacs-directory) nil t))
+
+;; silence julia-ts-mode warnings
+(setq treesit-language-source-alist
+      '())
 
 ;; load latex
 (load-language-module "lang/latex.el")
