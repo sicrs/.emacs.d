@@ -21,9 +21,22 @@
 (use-package auctex
   :hook ((LaTeX-mode . prettify-symbols-mode))
   :custom
-  (TeX-engine 'xetex)
+  (TeX-engine-alist '((default
+                       "Tectonic"
+                       "tectonic -X compile -f plain %T"
+                       "tectonic -X watch"
+                       nil)))
+  (LaTeX-command-style '(("" "%(latex)")))
+  (TeX-check-TeX nil)
+  (TeX-engine 'default)
   (add-to-list 'TeX-view-program-selection
-               '(output-pdf "Zathura")))
+               '(output-pdf "Zathura"))
+  :config
+  (with-eval-after-load 'tex
+    (let ((tex-list (assoc "TeX" TeX-command-list))
+        (latex-list (assoc "LaTeX" TeX-command-list)))
+    (setf (cadr tex-list) "%(tex)"
+          (cadr latex-list) "%l"))))
 
 (use-package latex-preview-pane
   :defer t)
