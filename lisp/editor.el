@@ -65,6 +65,8 @@
   (evil-want-integration t)
   (evil-want-C-i-jump t)
   (evil-search-module 'evil-search "use vim-like search instead of isearch.")
+  :init
+  (setq evil-undo-system 'undo-fu)
   :config
   (add-hook 'minibuffer-setup-hook
             (lambda ()
@@ -204,9 +206,7 @@
   (blackout 'god-local-mode))
 
 (use-package undo-fu
-  :defer t
-  :config
-  (setq evil-undo-system 'undo-fu))
+  :defer t)
 
 (use-package vterm
   :defer t)
