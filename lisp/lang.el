@@ -20,5 +20,6 @@
 
 ;; programming languages
 (load-language-module "lang/julia.el")
+(load-language-module "lang/haskell.el")
 
 (provide 'lang)
