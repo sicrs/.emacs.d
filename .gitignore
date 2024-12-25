@@ -4,6 +4,7 @@ elpaca/
 eln-cache/
 themes/
 tree-sitter/
+multisession/
 
 # Files
 .custom.el
