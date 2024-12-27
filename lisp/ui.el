@@ -31,11 +31,6 @@
 
 (add-to-list 'custom-theme-load-path (expand-file-name "themes/" user-emacs-directory))
 
-(use-package almost-mono-themes
-  :disabled
-  :config
-  (load-theme 'almost-mono-black t))
-
 (use-package indent-bars
   :defer t
   :hook ((julia-mode) . indent-bars-mode)
