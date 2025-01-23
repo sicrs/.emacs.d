@@ -127,7 +127,8 @@
     "t" #'tab-new
     "d" #'dired
     "1" #'delete-other-windows
-    "0" #'delete-window))
+    "0" #'delete-window
+    "s" #'tab-switch))
 
 (setq ibuffer-expert t)
 (global-set-key (kbd "C-x C-b") #'ibuffer)
