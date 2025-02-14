@@ -118,7 +118,7 @@
   (keymap-set evil-normal-state-map "SPC" 'editor-leader-map)
   (evil-define-key nil editor-leader-map
     "b" #'switch-to-buffer
-    "k" #'kill-this-buffer
+    "k" #'kill-current-buffer
     " " #'find-file
     "f" #'find-file-other-window
     "w" #'make-frame
