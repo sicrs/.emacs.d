@@ -26,11 +26,11 @@
   (interactive (list 'interactive))
   (let ((inhibit-quit t))
     (cond ((minibuffer-window-active-p (minibuffer-window))
-	   (when interactive
-	     (setq this-command #'abort-recursive-edit))
-	   ((run-hook-with-args-until-success 'editor-escape-hook))
-	   ((or defining-kbd-macro executing-kbd-macro) nil)
-	   ((unwind-protect (keyboard-quit)))))))
+	       (when interactive
+	         (setq this-command #'abort-recursive-edit))
+	       ((run-hook-with-args-until-success 'editor-escape-hook))
+	       ((or defining-kbd-macro executing-kbd-macro) nil)
+	       ((unwind-protect (keyboard-quit)))))))
 
 (global-set-key [remap keyboard-quit] #'editor-escape)
 
@@ -64,23 +64,23 @@
   (defun evil-stop-execute-in-god-state ()
     "Switch back to previous evil state"
     (unless (or (eq this-command #'evil-execute-in-god-state)
-		(eq this-command #'universal-argument)
-		(eq this-command #'universal-argument-minus)
-		(eq this-command #'universal-argument-more)
-		(eq this-command #'universal-argument-other-key)
-		(eq this-command #'digit-argument)
-		(eq this-command #'negative-argument)
-		(minibufferp))
+		        (eq this-command #'universal-argument)
+		        (eq this-command #'universal-argument-minus)
+		        (eq this-command #'universal-argument-more)
+		        (eq this-command #'universal-argument-other-key)
+		        (eq this-command #'digit-argument)
+		        (eq this-command #'negative-argument)
+		        (minibufferp))
       (remove-hook 'pre-command-hook 'evil-god-fix-last-command)
       (remove-hook 'post-command-hook 'evil-stop-execute-in-god-state)
       (when (buffer-live-p evil-execute-in-god-state-buffer)
-	(with-current-buffer evil-execute-in-god-state-buffer
-	  (if (and (eq evil-previous-state 'visual)
-		   (not (use-region-p)))
-	      (progn
-		(evil-change-to-previous-state)
-		(evil-exit-visual-state))
-	    (evil-change-to-previous-state))))
+	    (with-current-buffer evil-execute-in-god-state-buffer
+	      (if (and (eq evil-previous-state 'visual)
+		           (not (use-region-p)))
+	          (progn
+		        (evil-change-to-previous-state)
+		        (evil-exit-visual-state))
+	        (evil-change-to-previous-state))))
       (setq evil-execute-in-god-state-buffer nil)))
 
   (defun evil-execute-in-god-state ()
@@ -93,10 +93,10 @@
     (cond
      ((evil-visual-state-p)
       (let ((mrk (mark))
-	    (pnt (point)))
-	(evil-god-state)
-	(set-mark mrk)
-	(goto-char pnt)))
+	        (pnt (point)))
+	    (evil-god-state)
+	    (set-mark mrk)
+	    (goto-char pnt)))
      (t
       (evil-god-state)))
     (evil-echo "Switched to god-state for the next command..."))

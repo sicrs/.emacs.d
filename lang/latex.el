@@ -34,9 +34,9 @@
   :config
   (with-eval-after-load 'tex
     (let ((tex-list (assoc "TeX" TeX-command-list))
-        (latex-list (assoc "LaTeX" TeX-command-list)))
-    (setf (cadr tex-list) "%(tex)"
-          (cadr latex-list) "%l"))))
+          (latex-list (assoc "LaTeX" TeX-command-list)))
+      (setf (cadr tex-list) "%(tex)"
+            (cadr latex-list) "%l"))))
 
 (use-package latex-preview-pane
   :defer t)
@@ -53,7 +53,7 @@
 (use-package cdlatex
   :defer t
   :hook ((LaTeX-mode . cdlatex-mode)
-	 (LaTeX-mode . cdlatex-electricindex-mode))
+	     (LaTeX-mode . cdlatex-electricindex-mode))
   :bind (:map cdlatex-mode-map ("<tab>" . cdlatex-tab))
   :config
   (setq cdlatex-env-alist

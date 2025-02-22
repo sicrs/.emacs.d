@@ -53,9 +53,9 @@
 ;; (global-display-line-numbers-mode t);:
 ;; enable line numbers for text and code instead of enabling globally
 (setq-default display-line-numbers-width 3
-	      display-line-numbers-widen t
-	      word-wrap t
-	      truncate-lines t)
+	          display-line-numbers-widen t
+	          word-wrap t
+	          truncate-lines t)
 (setq display-line-numbers-type 'relative
       truncate-partial-width-windows nil
       global-text-scale-adjust-resizes-frames nil)
