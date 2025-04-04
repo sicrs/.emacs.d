@@ -52,10 +52,12 @@
       lazy-highlight-initial-delay 0)
 
 ;; open PDFs in zathura instead of DocView
-(defun editor-zathura-pdf-open ()
-  (start-process "zathura" nil "zathura" "--fork" (buffer-file-name))
-  (kill-buffer))
-(add-to-list 'auto-mode-alist '("\\.pdf\\'" . editor-zathura-pdf-open))
+;; but only on linux
+(when (eq system-type 'gnu/linux)
+  (defun editor-zathura-pdf-open ()
+    (start-process "zathura" nil "zathura" "--fork" (buffer-file-name))
+    (kill-buffer))
+  (add-to-list 'auto-mode-alist '("\\.pdf\\'" . editor-zathura-pdf-open)))
 
 ;;; PACKAGES
 (use-package evil
