@@ -213,6 +213,14 @@
 (use-package vterm
   :defer t)
 
+;;; HELPER FUNCTIONS
+;; reload buffer contents with no confirmation
+(defun revert-buffer-noconfirm ()
+  "Revert buffer without confirmation"
+  (interactive)
+  (revert-buffer :ignore-auto :noconfirm))
+
+
 ;; TODO: clear
 ;; play around with find-file minibuffer completion
 ;; (defun find-file-test ()
