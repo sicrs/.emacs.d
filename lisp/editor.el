@@ -83,7 +83,7 @@
     (when (called-interactively-p 'any)
       (call-interactively #'editor-escape)))
   (advice-add #'evil-force-normal-state :after #'evil-escape-a)
-  
+
   (evil-mode))
 
 (use-package which-key
@@ -207,10 +207,20 @@
   :config
   (blackout 'god-local-mode))
 
+; (use-package undo-tree
+;   :defer t)
+
 (use-package undo-fu
-  :defer t)
+  :defer t
+  :after evil)
+
+(use-package vundo
+  :defer t
+  :after undo-fu
+  :preface (setq vundo-glyph-alist vundo-unicode-symbols))
 
 (use-package vterm
+  :disabled
   :defer t)
 
 ;;; HELPER FUNCTIONS
@@ -220,12 +230,6 @@
   (interactive)
   (revert-buffer :ignore-auto :noconfirm))
 
-
-;; TODO: clear
-;; play around with find-file minibuffer completion
-;; (defun find-file-test ()
-;;   (interactive)
-;;   (message "lmao"))
 
 ;; (define-key minibuffer-local-filename-completion-map
 ;;             [C-Backspace] #'find-file-test)

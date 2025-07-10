@@ -19,6 +19,7 @@
   ;; for org-modern -- this saves us the bother of calling the setq on hook
   (setq org-ellipsis "…")
   (set-face-attribute 'org-ellipsis nil :inherit 'default :box nil)
+  (set-face-attribute 'org-meta-line nil :family "SF Pro Text")
 
   ;; configure capture templates
   (setq org-todo-keywords

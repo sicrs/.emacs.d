@@ -128,7 +128,8 @@
     "d" #'dired
     "1" #'delete-other-windows
     "0" #'delete-window
-    "s" #'tab-switch))
+    "s" #'tab-switch
+    "v" #'vundo))
 
 (setq ibuffer-expert t)
 (global-set-key (kbd "C-x C-b") #'ibuffer)

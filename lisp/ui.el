@@ -20,14 +20,17 @@
 ;;; Code:
 
 ;; font settings
-(defvar ui-default-font-height 110)
-(defvar ui-default-variable-font-height 110)
+(when (display-graphic-p)
+  (defvar ui-default-font-height 115)
+  (defvar ui-default-variable-font-height 110)
 
-(set-face-attribute 'default nil :font "TX\-02-12" :height ui-default-font-height)
-(set-face-attribute 'fixed-pitch nil :font "TX\-02-12" :height ui-default-font-height)
-;; (set-face-attribute 'variable-pitch nil :font "Iosevka Aile Medium-12" :height ui-default-variable-font-height)
-(set-face-attribute 'variable-pitch nil :font "SF Compact Text-12" :height ui-default-variable-font-height)
-;; (set-face-font 'variable-pitch "Iosevka Aile Semibold-12")
+  (set-face-attribute 'default nil :font "TX\-02-12" :height ui-default-font-height)
+  (set-face-attribute 'fixed-pitch nil :font "TX\-02-12" :height ui-default-font-height)
+  ;; (set-face-attribute 'variable-pitch nil :font "Iosevka Aile Medium-12" :height ui-default-variable-font-height)
+  (set-face-attribute 'variable-pitch nil :font "SF Compact Text-12" :height ui-default-variable-font-height)
+  ;; (set-face-font 'variable-pitch "Iosevka Aile Semibold-12")
+  ;; (set-face-attribute 'mode-line nil :font "SF Compact Text-12" :weight 'regular)
+  )
 
 (add-to-list 'custom-theme-load-path (expand-file-name "themes/" user-emacs-directory))
 
@@ -46,7 +49,7 @@
       modus-themes-italic-constructs t
       modus-themes-fringes 'subtle
       modus-themes-disable-other-themes t) ;
-(load-theme 'modus-vivendi t)		    ;
+(load-theme 'modus-operandi t)		    ;
 ;; (load-theme 'modus-vivendi-tinted t)
 
 ;; line number
