@@ -193,6 +193,12 @@
   (setq evil-snipe-repeat-scope 'visible
         evil-snipe-spillover-scope 'visible))
 
+(use-package evil-surround
+  :defer t
+  :after (evil)
+  :config
+  (global-evil-surround-mode 1))
+
 (use-package helpful
   :defer t
   :init

@@ -30,7 +30,9 @@
   (set-face-attribute 'variable-pitch nil :font "SF Compact Text-12" :height ui-default-variable-font-height)
   ;; (set-face-font 'variable-pitch "Iosevka Aile Semibold-12")
   ;; (set-face-attribute 'mode-line nil :font "SF Compact Text-12" :weight 'regular)
-  )
+
+  (with-eval-after-load 'org
+    (set-face-attribute 'org-level-1 nil :font "SF Compact Text-15" :weight 'medium :height 180)))
 
 (add-to-list 'custom-theme-load-path (expand-file-name "themes/" user-emacs-directory))
 
