@@ -1,12 +1,86 @@
 ;;; -*- lexical-binding: t; -*-
 
+(defun ui/org-mode--compute-prefixes ()
+  "Compute prefix strings for regular text and headlines"
+  (setq org-indent--heading-line-prefixes
+        (make-vector org-indent--deepest-level nil))
+
+  (setq org-indent--inlinetask-line-prefixes
+        (make-vector org-indent--deepest-level nil))
+
+  (setq org-indent--text-line-prefixes
+        (make-vector org-indent--deepest-level nil))
+
+  (let* ((min-indent 5)
+         (indent (+ 1 (seq-max
+                       (org-element-map
+                        (org-element-parse-buffer) 'headline
+                        #'(lambda (item)
+                            (org-element-property :level item))))))
+         (indent (max indent min-indent)))
+
+    (dotimes (n org-indent--deepest-level)
+      (aset org-indent--heading-line-prefixes n
+            (make-string
+             (min indent (max 0 (- indent 1 n))) ?\s))
+      (aset org-indent--inlinetask-line-prefixes n
+            (make-string indent ?\s))
+      (aset org-indent--text-line-prefixes n
+            (make-string indent ?\s)))))
+
+(defun ui/org-mode--num-format (numbering)
+  "Alternative numbering format adapted from rougier's nano-emacs"
+
+  (if (= (length numbering) 1)
+      (propertize (concat (mapconcat
+                           #'number-to-string
+                           numbering ".") " | " )
+                  'face `(:family "TX\-02"
+                                  :height 250))
+    (propertize (concat (mapconcat
+                         #'number-to-string
+                         numbering ".") " — " )
+                'face `(:family "TX\-02"))))
+
 (use-package org
   :defer t
   :hook ((org-mode . org-cdlatex-mode) ;; enable cdlatex for quick writing inside the latex block
 	     (org-mode . visual-line-mode) ;; wrap
-	     ;; (org-mode . org-indent-mode)
+	     (org-mode . org-indent-mode)
+         ;; (org-mode . org-num-mode)
          ) ;; show indents instead of multiple asterisks
   :config
+  (advice-add 'org-indent--compute-prefixes :override
+              #'ui/org-mode--compute-prefixes)
+
+  ;; UI tweaks
+  (setq fill-column 72)
+  (setq-default line-spacing 1)
+  (setq org-hide-leading-stars nil)
+  (setq org-level-color-stars-only nil)
+  (setq org-indent-mode-turns-on-hiding-stars nil)
+  (setq header-line-format nil)
+  (setq org-pretty-entities t)
+  (setq org-hide-emphasis-markers t)
+
+  (when (require 'org-num nil t)
+    (setq org-num-skip-unnumbered t)
+    (setq org-num-skip-footnotes t)
+    (setq org-num-max-level 2)
+    (setq org-num-face nil))
+    ;; (setq org-num-format-function 'ui/org-mode--num-format))
+
+  (set-face-attribute 'org-level-1 nil
+                      :family "TX\-02" :weight 'semi-bold)
+
+  (dolist (face '(org-level-2 org-level-3 org-level-4
+                              org-level-5 org-level-6 org-level-7 org-level-8))
+    (set-face-attribute face nil :inherit 'org-level-1))
+  ;; (set-face-attribute 'org-level-2 nil
+  ;;                     :family "TX\-02" :weight 'medium)
+  ;; (set-face-attribute 'org-level-3 nil
+  ;;                     :family "TX\-02" :weight 'medium)
+ 
   (setq org-preview-latex-default-process 'imagemagick
         org-latex-pdf-process '("tectonic -X compile %f"))
 
@@ -19,7 +93,7 @@
   ;; for org-modern -- this saves us the bother of calling the setq on hook
   (setq org-ellipsis "…")
   (set-face-attribute 'org-ellipsis nil :inherit 'default :box nil)
-  (set-face-attribute 'org-meta-line nil :family "SF Pro Text")
+  ;; (set-face-attribute 'org-meta-line nil :family "SF Pro Text")
 
   ;; configure capture templates
   (setq org-todo-keywords
@@ -54,6 +128,7 @@
   (blackout 'org-indent-mode))
 
 (use-package org-modern
+  :disabled
   :hook ((org-mode . org-modern-mode)
 	     (org-agenda-finalize . org-modern-agenda))
   :custom

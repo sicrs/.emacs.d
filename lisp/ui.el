@@ -31,10 +31,9 @@
   ;; (set-face-font 'variable-pitch "Iosevka Aile Semibold-12")
   ;; (set-face-attribute 'mode-line nil :font "SF Compact Text-12" :weight 'regular)
 
-  (with-eval-after-load 'org
-    (set-face-attribute 'org-level-1 nil :font "SF Compact Text-15" :weight 'medium :height 180)))
+  )
 
-(add-to-list 'custom-theme-load-path (expand-file-name "themes/" user-emacs-directory))
+;; (add-to-list 'custom-theme-load-path (expand-file-name "themes/" user-emacs-directory))
 
 (use-package indent-bars
   :defer t
@@ -46,12 +45,24 @@
         indent-bars-color-by-depth nil
         indent-bars-highlight-current-depth '(:face default :blend 0.4)))
 
-(setq modus-themes-bold-constructs t
-      modus-themes-variable-pitch-ui nil
-      modus-themes-italic-constructs t
-      modus-themes-fringes 'subtle
-      modus-themes-disable-other-themes t) ;
-(load-theme 'modus-operandi t)		    ;
+(use-package lambda-themes
+  :elpaca nil
+  :load-path (lambda () (expand-file-name "themes/" user-emacs-directory))
+  :custom
+  (lambda-themes-set-italic-comments t)
+  (lambda-themes-set-italic-keywords t)
+  :config
+  (load-theme 'lambda-dark))
+
+;; (custom-set-variables (lambda-themes-set-italic-comments t)
+;;                       (lambda-themes-set-italic-keywords t))
+
+;; (setq modus-themes-bold-constructs t
+;;       modus-themes-variable-pitch-ui nil
+;;       modus-themes-italic-constructs t
+;;       modus-themes-fringes 'subtle
+;;       modus-themes-disable-other-themes t) ;
+;; (load-theme 'modus-operandi t)		    ;
 ;; (load-theme 'modus-vivendi-tinted t)
 
 ;; line number
