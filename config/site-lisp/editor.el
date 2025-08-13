@@ -1,25 +1,5 @@
-;;; editor.el --- Description -*- lexical-binding: t; -*-
-;;
-;; Copyright (C) 2024
-;;
-;; Author:  <sicrs@gamma>
-;; Maintainer:  <sicrs@gamma>
-;; Created: October 13, 2024
-;; Modified: October 13, 2024
-;; Version: 0.0.1
-;; Keywords: abbrev bib c calendar comm convenience data docs emulations extensions faces files frames games hardware help hypermedia i18n internal languages lisp local maint mail matching mouse multimedia news outlines processes terminals tex tools unix vc wp
-;; Homepage: https://github.com/sicrs/editor
-;; Package-Requires: ((emacs "29.4"))
-;;
-;; This file is not part of GNU Emacs.
-;;
-;;; Commentary:
-;;
-;;  Description
-;;
-;;; Code:
-
-;; put savefiles elsewhere so it doesn't litter my folders
+;; editor.el -*- lexical-binding: t; -*-
+;; backup directory-related settings
 (setq backup-directory-alist `(("." . "~/.emacs-saves"))
       backup-by-copying t
       delete-old-versions t
@@ -28,38 +8,24 @@
       version-control t)
 
 (setq-default indent-tabs-mode nil
-	          tab-width 4
-	          fill-column 80)
+              tab-width 4
+              fill-column 72)
 
-;; save customisations elsewhere
-(setq custom-file (expand-file-name ".custom.el" user-emacs-directory))
-
-(unless (file-exists-p custom-file)
-  (if (or (eq system-type 'darwin)
-          (eq system-type 'gnu/linux))
-      (shell-command (format "touch %s" custom-file))
-    (if (eq system-type 'ms-dos)
-        (shell-command (format "type NUL > %s" custom-file))
-      (error "Unknown system!")))
-  (message ".custom.el not found, creating..."))
-(load custom-file)
-
-;; Consider using meow? but I want to maintain familiarity with vim bindings, the reverse motions don't seem interesting to me...
+;; misc. editor settings
 (setq help-window-select t
       comment-multi-line t
       kill-do-not-save-duplicates t
       comment-empty-lines t
       lazy-highlight-initial-delay 0)
 
-;; open PDFs in zathura instead of DocView
-;; but only on linux
+;; open PDFs in zathura only in linux
 (when (eq system-type 'gnu/linux)
   (defun editor-zathura-pdf-open ()
     (start-process "zathura" nil "zathura" "--fork" (buffer-file-name))
     (kill-buffer))
   (add-to-list 'auto-mode-alist '("\\.pdf\\'" . editor-zathura-pdf-open)))
 
-;;; PACKAGES
+;; packages
 (use-package evil
   :demand t
   :preface (setq evil-want-keybinding nil)
@@ -229,16 +195,10 @@
   :disabled
   :defer t)
 
-;;; HELPER FUNCTIONS
-;; reload buffer contents with no confirmation
 (defun revert-buffer-noconfirm ()
   "Revert buffer without confirmation"
   (interactive)
   (revert-buffer :ignore-auto :noconfirm))
 
-
-;; (define-key minibuffer-local-filename-completion-map
-;;             [C-Backspace] #'find-file-test)
-
 (provide 'editor)
-;;; editor.el ends here
+;; editor.el ends here

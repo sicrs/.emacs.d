@@ -72,10 +72,8 @@
 
 ;; defined in early-init as a convenience function
 ;; make sure to not bind keys that will be overwritten by other modules
-(cfg-load "lisp/ui.el")
-(cfg-load "lisp/editor.el")
-(cfg-load "lisp/lang.el")
-(cfg-load "lisp/keybinds.el")
+(use-package config
+  :load-path (lambda () (expand-file-name "config/" user-emacs-directory)))
 
 ;; MISC
 (if (boundp 'use-short-answers)
