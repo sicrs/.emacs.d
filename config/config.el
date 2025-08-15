@@ -50,9 +50,6 @@
 
 ;; theme and associated settings
 (add-to-list 'custom-theme-load-path (expand-file-name "site-lisp/" (file-name-directory load-file-name)))
-;; (require 'lambda-themes)
-;; (custom-set-variables (lambda-themes-set-italic-comments t)
-;;                       (lambda-themes-set-variable-pitch nil))
 (load-theme 'lambda-dark t)
 
 ;; line numbers
