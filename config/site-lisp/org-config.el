@@ -3,6 +3,7 @@
 ;;;###autoload
 (defun ui/org-mode--compute-prefixes ()
   "Compute prefix strings for regular text and headlines"
+
   (setq org-indent--heading-line-prefixes
         (make-vector org-indent--deepest-level nil))
 
@@ -12,12 +13,15 @@
   (setq org-indent--text-line-prefixes
         (make-vector org-indent--deepest-level nil))
 
+  ;; the following is problematic if the org document contains no headings
+  ;; this is fixed by concatenating the sequence/list produced by org-element-map
+  ;; (if empty) with a 0
   (let* ((min-indent 5)
          (indent (+ 1 (seq-max
-                       (org-element-map
-                        (org-element-parse-buffer) 'headline
-                        #'(lambda (item)
-                            (org-element-property :level item))))))
+                       (cons 0 (org-element-map
+                                   (org-element-parse-buffer) 'headline
+                                 #'(lambda (item)
+                                     (org-element-property :level item)))))))
          (indent (max indent min-indent)))
 
     (dotimes (n org-indent--deepest-level)
