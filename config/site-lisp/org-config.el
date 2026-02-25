@@ -48,11 +48,20 @@
                          numbering ".") " — " )
                 'face `(:family "TX\-02"))))
 
+;;;###autoload
+;; (defun orgcfg/export-filter (text backend info)
+;;   "Do not export task labels and drawers"
+;;   (when (org-export-derived-backend-p backend 'latex 'html)
+;;     ))
+
 (use-package org
   :defer t
   :hook ((org-mode . org-cdlatex-mode)
          (org-mode . visual-line-mode)
          (org-mode . org-indent-mode))
+  :custom
+  (org-cite-global-bibliography
+   '("/home/sicrs/bib/ref.bib"))
   :config
   (advice-add 'org-indent--compute-prefixes :override
               #'ui/org-mode--compute-prefixes)
@@ -89,6 +98,11 @@
         org-return-follow-link t
         org-hide-emphasis-markers t)
 
+  ;; priority
+  (custom-set-variables '(org-priority-highest 1)
+                        '(org-priority-lowest  5)
+                        '(org-priority-default 3))
+
   (setq org-ellipsis "…")
   (set-face-attribute 'org-ellipsis nil :inherit 'default :box nil)
 
@@ -100,6 +114,16 @@
 	       "* TODO [#B] %?\n:Created: %T\n "
 	       :empty-lines 0)
 	      ))
+
+  ;; org structure templates for latex
+  (add-to-list 'org-structure-template-alist
+               '("d" . "definition"))
+  (add-to-list 'org-structure-template-alist
+               '("lm" . "lemma"))
+  (add-to-list 'org-structure-template-alist
+               '("t" . "theorem"))
+  (add-to-list 'org-structure-template-alist
+               '("rm" . "remark"))
 
   ;; custom latex-macros babel language for custom \newcommand
   (add-to-list 'org-src-lang-modes '("latex-macros" . latex))
@@ -139,7 +163,26 @@
   (blackout 'visual-line-mode)
   (blackout 'org-indent-mode))
 
+(use-package citar
+  :custom
+  (citar-bibliography '("~/bib/ref.bib"))
+  :hook
+  (LaTeX-mode . citar-capf-setup)
+  (org-mode . citar-capf-setup)
+  :bind (
+         :map org-mode-map
+              ("C-c C-x @" . citar-insert-citation)))
 
+(use-package citar-embark
+  :defer t
+  :after (citar embark)
+  :no-require
+  :config
+  (blackout 'citar-embark-mode)
+  (citar-embark-mode))
+
+(use-package biblio
+  :defer t)
 
 (provide 'org-config)
 ;; org-config.el ends here

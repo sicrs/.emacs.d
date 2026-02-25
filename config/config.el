@@ -110,7 +110,9 @@
     "1" #'delete-other-windows
     "0" #'delete-window
     "s" #'tab-switch
-    "v" #'vundo))
+    "v" #'vundo
+    "l" #'embark-act
+    "L" #'embark-bindings))
 (setq ibuffer-expert t)
 (global-set-key (kbd "C-x C-b") #'ibuffer)
 
@@ -118,6 +120,7 @@
 (require 'org-config)
 ;; latex configuration
 (require 'latex-config)
+(require 'mail-config)
 
 (provide 'config)
 ;;; config.el ends here

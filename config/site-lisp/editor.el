@@ -73,6 +73,11 @@
   :defer 1
   :init (vertico-mode))
 
+(use-package embark
+  :defer 1
+  :bind
+  (("C-h B" . embark-bindings)))
+
 (use-package smartparens
   :defer t
   :hook (prog-mode text-mode markdown-mode)
@@ -80,6 +85,21 @@
   (blackout 'smartparens-mode)
   (require 'smartparens-config)
   (require 'smartparens-latex)
+
+  (setq-local commonpairs-alist
+              '((sp-local-pair "$" "$" :trigger "$")
+                ;; (sp-local-pair "$" "$")
+                ;; (sp-local-pair "" "" :actions '(rem))
+                ;; (sp-local-pair "=" "=" :actions '(rem))
+                ;; (sp-local-pair "" "" :actions '(rem))
+                (sp-local-pair "\\left(" "\\right)" :trigger "\\l(" :post-handlers '(sp-latex-insert-spaces-inside-pair))
+                (sp-local-pair "\\left[" "\\right]" :trigger "\\l[" :post-handlers '(sp-latex-insert-spaces-inside-pair))
+                (sp-local-pair "\\left\\{" "\\right\\}" :trigger "\\l{" :post-handlers '(sp-latex-insert-spaces-inside-pair))
+                (sp-local-pair "\\left|" "\\right|" :trigger "\\l|" :post-handlers '(sp-latex-insert-spaces-inside-pair))
+                (sp-local-pair "\\left \\langle " "\\right \\rangle" :trigger "\\l<" :post-handlers '(sp-latex-insert-spaces-inside-pair))
+                (sp-local-pair "(" ")")
+                (sp-local-pair "\\(" "\\)")
+                (sp-local-pair "\\[" "\\]")))
 
   (sp-with-modes 'org-mode
     (sp-local-pair "$" "$" :trigger "$")
@@ -91,6 +111,7 @@
     (sp-local-pair "\\left[" "\\right]" :trigger "\\l[" :post-handlers '(sp-latex-insert-spaces-inside-pair))
     (sp-local-pair "\\left\\{" "\\right\\}" :trigger "\\l{" :post-handlers '(sp-latex-insert-spaces-inside-pair))
     (sp-local-pair "\\left|" "\\right|" :trigger "\\l|" :post-handlers '(sp-latex-insert-spaces-inside-pair))
+    (sp-local-pair "\\left \\langle " "\\right \\rangle" :trigger "\\l<" :post-handlers '(sp-latex-insert-spaces-inside-pair))
     (sp-local-pair "(" ")")
     (sp-local-pair "\\(" "\\)")
     (sp-local-pair "\\[" "\\]")))
@@ -179,8 +200,8 @@
   :config
   (blackout 'god-local-mode))
 
-; (use-package undo-tree
-;   :defer t)
+                                        ; (use-package undo-tree
+                                        ;   :defer t)
 
 (use-package undo-fu
   :defer t

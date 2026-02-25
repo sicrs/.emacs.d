@@ -1,6 +1,7 @@
 ;; latex-config.el -*- lexical-binding: t -*-
 (use-package auctex
-  :hook ((LaTeX-mode . prettify-symbols-mode))
+  :hook ((LaTeX-mode . prettify-symbols-mode)
+         (LaTeX-mode . visual-line-mode))
   :custom
   (TeX-engine-alist '((default
                        "Tectonic"

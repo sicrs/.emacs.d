@@ -58,7 +58,7 @@
 
 ;;;; Theme Options
 
-(defcustom lambda-themes-set-theme 'light
+(defcustom lambda-themes-set-theme 'dark
   "Choose which theme variant, light or dark, regular or 'faded', to use."
   :group 'lambda-themes
   :type 'symbol)
@@ -80,7 +80,7 @@
   :group 'lambda-themes
   :type 'boolean)
 
-(defcustom lambda-themes-set-variable-pitch t
+(defcustom lambda-themes-set-variable-pitch nil
   "If t then use variable-pitch for headings and status-line."
   :group 'lambda-themes
   :type 'boolean
@@ -1472,13 +1472,13 @@ It should stick out from any other faces currently displayed."
                  (fboundp 'bespoke-modeline)
                  (fboundp 'nano-modeline)
                  (fboundp 'doom-modeline))
-       `(mode-line          ((,class (:foreground ,lambda-fg   :background ,lambda-faint    :box (:line-width 1 :color ,lambda-highlight :style nil))))))
+       `(mode-line          ((,class (:foreground ,lambda-fg   :background ,lambda-faint    :box (:line-width 2 :color ,lambda-faint :style nil))))))
 
      (unless (or (fboundp 'lambda-line)
                  (fboundp 'bespoke-modeline)
                  (fboundp 'nano-modeline)
                  (fboundp 'doom-modeline))
-       `(mode-line-inactive ((,class (:foreground ,lambda-meek :background ,lambda-lowlight :box (:line-width 1 :color ,lambda-highlight :style nil))))))
+       `(mode-line-inactive ((,class (:foreground ,lambda-meek :background ,lambda-lowlight :box (:line-width 2 :color ,lambda-lowlight :style nil))))))
 
 ;;;;;; Doom Modeline
      (when (fboundp 'doom-modeline)
