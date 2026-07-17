@@ -26,6 +26,11 @@
 (defvar init--gc-cons-thval (* 16 1024 1024)) ;; 16MB
 (defvar default-file-name-handler-alist file-name-handler-alist)
 
+;; skip a bunch of regular expression searching
+
+(defvar default-file-name-handler-alist file-name-handler-alist)
+(setq file-name-handler-alist nil)
+
 ;; GC wizardry
 ;; set maximal
 (setq gc-cons-threshold most-positive-fixnum
@@ -50,6 +55,12 @@
 
 (with-eval-after-load 'elpaca
   (add-hook 'elpaca-after-init-hook '+reset-init-values))
+
+;; UI stuff
+(push '(menu-bar-lines . 0) default-frame-alist)
+(push '(tool-bar-lines . 0) default-frame-alist)
+(push '(vertical-scroll-bars) default-frame-alist)
+
 
 (set-language-environment "UTF-8")
 (setq default-input-method nil)
@@ -119,7 +130,7 @@
 ;; necessary for elpaca.el
 (setq package-enable-at-startup nil)
 (setq package-quickstart nil)
-(setq use-package-always-ensure nil) ;; does this even exist when I don't use use-package.el
+;; (setq use-package-always-ensure nil) ;; does this even exist when I don't use use-package.el
 
 (defun early-init-display-startup-time ()
   "Display startup time."
