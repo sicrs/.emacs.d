@@ -48,9 +48,14 @@
               word-wrap t
               truncate-lines t)
 
+(use-package ef-themes
+  :ensure t
+  :config
+  (load-theme 'ef-frost t))
+
 ;; theme and associated settings
 (add-to-list 'custom-theme-load-path (expand-file-name "site-lisp/" (file-name-directory load-file-name)))
-(load-theme 'lambda-dark t)
+;; (load-theme 'ef-frost t)
 
 ;; line numbers
 (setq display-line-numbers-type 'relative
@@ -115,6 +120,11 @@
     "L" #'embark-bindings))
 (setq ibuffer-expert t)
 (global-set-key (kbd "C-x C-b") #'ibuffer)
+
+;; only on mac
+(when (and (eq system-type 'darwin) (display-graphic-p))
+  (setq mac-option-modifier nil
+        mac-command-modifier 'meta))
 
 ;; org configuration
 (require 'org-config)

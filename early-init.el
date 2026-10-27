@@ -91,9 +91,15 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (tooltip-mode -1)
-(menu-bar-mode -1)
+(if (and (display-graphic-p) (eq system-type 'darwin))
+    (menu-bar-mode t)
+  (menu-bar-mode -1))
 
 (setq frame-title-format "%b - emacs")
+
+(when (eq system-type 'darwin)
+  (require 'comp)
+  (setq native-comp-driver-options (cons "-mmacosx-version-min=11" native-comp-driver-options)))
 
 ;; forgo bidirectional functionality for a modest perf boost
 (setq-default bidi-display-reordering 'left-to-right
